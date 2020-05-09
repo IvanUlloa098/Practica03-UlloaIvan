@@ -1,0 +1,11 @@
+img {
+    position: absolute;
+    display: block;
+    
+}
+
+#navegacion {
+    margin: 2.5em;
+    top: 300px;
+    position: relative;
+}

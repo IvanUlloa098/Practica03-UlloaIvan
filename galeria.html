@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <script src="galeria.js" type="text/javascript"></script>
+    <link href="galeria.css" rel="stylesheet" />
+    <meta charset=”utf-8” /> 
+</head>
+
+<body onload="asignar()">
+    <header>
+        <h1>GALERIA DE IMAGENES</h1>
+    </header>
+
+    <div style="height: 300px; width: 300px; overflow: hidden; position: absolute;" >
+
+        <img alt="fig1" id="fig5" class="imagen"/>
+        <img alt="fig2" id="fig4" class="imagen"/>
+        <img alt="fig3" id="fig3" class="imagen"/>
+        <img alt="fig4" id="fig2" class="imagen"/>
+        <img alt="fig1" id="fig1" class="imagen"/>
+
+    </div>
+
+    <footer id="navegacion">
+        <button id="btn1" disabled="true" onclick="navegar(this.id); return false">Anterior</button>
+        <button id="btn2" onclick="navegar(this.id)">Iniciar</button>
+        <button id="btn3" onclick="navegar(this.id); return false">Siguiente</button>
+    </footer>
+
+</body>
+    
+</html>
