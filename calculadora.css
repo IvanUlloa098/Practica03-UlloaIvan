@@ -1,0 +1,27 @@
+div.numeros {
+    display: block;
+    width: 50%;
+}
+
+button {
+    margin: 1em 0;
+    padding: 1em;
+}
+
+textarea {
+    height: 1em;
+    padding: .2em;
+}
+
+form {
+    margin: 2em;
+    width: 40%;
+}
+
+div#sec button {
+    display: block;
+}
+div#sec {
+    float: left;
+    width: 10%;
+}
