@@ -12,6 +12,13 @@ function validarCamposObligatorios() {
             op = elemento.id;
 
             switch(op) {
+
+                case 'cedula':
+                    c=this.validarCedula(elemento);
+                    if (c==false) {
+                        document.getElementById('mensajeCedula').innerHTML = '<br>Cedula no valida';
+                    }
+                break;
                     
                 case 'nombres':
                     c=this.dosPalabras(elemento);
@@ -51,9 +58,7 @@ function validarCamposObligatorios() {
 
             }
 
-        }
-
-        if((elemento.value == '' && elemento.type == 'text') || (elemento.value == '' && elemento.type == 'password')) {
+        } else if((elemento.value == '' && elemento.type == 'text') || (elemento.value == '' && elemento.type == 'password')) {
 
             /*if(elemento.id == 'cedula'){
                 document.getElementById('mensajeCedula').innerHTML = '<br>La cedula esta vacia';
@@ -67,11 +72,43 @@ function validarCamposObligatorios() {
 
     if(!bandera){
         //advertencias = advertencias+'\nERROR: Campos Obligatorios Vacios';
-        alert('ERROR: Campos Obligatorios Vacios');
+        alert('ERROR: Por favor llene los campos obligatorios');
     }
 
     return bandera;
 }
+
+function validarCedula(elemento) {
+
+    var texto = elemento.value;
+    var bandera=false;
+    var total = 0;
+
+    if (texto.length == 10){
+
+        for(i = 0; i < (texto.length-1); i++){
+            if (i%2 === 0) {
+                var aux = texto.charAt(i) * 2;
+                if (aux > 9) aux -= 9;
+                total += aux;
+            } else {
+                total += parseInt(texto.charAt(i));
+            }
+        }
+
+        total = total % 10 ? 10 - total % 10 : 0;
+
+        if (texto.charAt(texto.length-1) == total) {
+            bandera=true;
+        }else{
+            bandera=false;
+        }
+    }
+
+    return bandera;
+
+}
+
 
 function validarFormato(elemento) {
     
