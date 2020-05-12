@@ -1,6 +1,6 @@
-div.numeros {
-    display: block;
-    width: 50%;
+body {
+    height: 30em;
+    margin: 5% 0 0 35%;
 }
 
 button {
@@ -8,14 +8,33 @@ button {
     padding: 1em;
 }
 
+button:focus {
+    background-color: pink;
+}
+
+button:hover {
+    background-color: purple;
+}
+
 textarea {
     height: 1em;
     padding: .2em;
+    float: left;
+    width: 80%;
 }
 
 form {
     margin: 2em;
-    width: 40%;
+    width: 26%;
+    height: 65%;
+    border: #4c6caf dotted thick;
+    padding: 3% 0 3% 3%;
+    background-color: rgb(97, 52, 105);
+}
+
+div#cal {
+    width: 60%;
+    float: left;
 }
 
 div#sec button {
