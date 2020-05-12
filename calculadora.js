@@ -1,3 +1,4 @@
+
 function figual() {
     x=document.getElementById('area_cal').value;
     r=eval(x);
