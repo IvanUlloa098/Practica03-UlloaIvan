@@ -1,289 +1,311 @@
-﻿![](README_files/background01.jpg)
-REPOSITORIO
-Link del Repositorio:
-[https://github.com/IvanUlloa098/Practica03-UlloaIvan.git](https://github.com/IvanUlloa098/Practica03-UlloaIvan.git)
-Usuario: IvanUlloa098
-Commits:
-1. Diseñar una interfaz en HTML que permita ingresar los siguientes
-campos en un
-formulario: cedula, nombres, apellidos, dirección, teléfono, fecha de
-nacimiento,
-correo electrónico y contraseña. Luego, usando funciones de JavaScript
-se pide
-validar que todos los campos han sido ingresados, además; que los
-valores
-ingresados en cada campo del formulario sean correctos teniendo en
-cuenta las
-siguientes condiciones:
-![](README_files/background02.jpg)
-![](README_files/background03.jpg)
-a) Validar Cedula
-El método validarCedula() recibe el elemento y primeramente verifica que
-el
-numero de caracteres sea igual a 10 para de esta manera continuar con el
-método de validación que es aquel que se ha llevado realizando desde
-siempre.
-function validarCedula(elemento) {
-var texto = elemento.value;
-var bandera=false;
-var total = 0;
-if (texto.length == 10){
-![](README_files/background04.jpg)
-for(i = 0; i \< (texto.length-1); i++){
-if (i%2 === 0) {
-var aux = texto.charAt(i) \* 2;
-if (aux \> 9) aux -= 9;
-total += aux;
-} else {
-total += parseInt(texto.charAt(i));
-}
-}
-total = total % 10 ? 10 - total % 10 : 0;
-if (texto.charAt(texto.length-1) == total) {
-bandera=true;
-}else{
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera=false;
-}
-}
-return bandera;
-}
-Al final la bandera indicará si se encuentra correcta o no.
-b) Validar Nombres
-Este método (dosPalabras) es simple e involucra contar la cantidad de
-espacios en blanco existentes en el elemento input, sin existen más de
-un
-espacio o “0” espacios la bandera cambiará a falso. Esto juntado con un
-![](README_files/background05.jpg)
-método de verificación al ingresar cada letra, evitando el ingreso de
-caracteres especiales o números.
-function dosPalabras(elemento) {
-var codigo;
-var count=0;
-var bandera=true;
-//var elemento = document.getElementById("nombres");
-var texto = elemento.value;
-for(var i = 0; i \< texto.length; i++) {
-codigo = texto.charCodeAt(i);
-if (codigo == 32) {
-count++;
-}
-}
-if(count\>1){
-//advertencias = advertencias+'\\nERROR: Solo dos '+elemento.id;
-//alert('ERROR: Solo dos '+elemento.id);
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-} else if (count==0) {
-//alert('ERROR: Dos '+elemento.id+' neccesarios');
-![](README_files/background06.jpg)
-//advertencias = advertencias+'\\nERROR: Dos '+elemento.id+' neccesar
-ios';
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-return bandera;
-}
-El método para validar los caracteres. Lo que hace es verificar el
-carácter
-ingresado y compararlo con su código Unicode, el que debe estar en un
-intervalo determinado. Se incluye también el uso de espacio (\#32):
-function validarLetras(elemento) {
-if(elemento.value.length \> 0){
-var codigo = elemento.value.charCodeAt(elemento.value.length-1);
-console.log(codigo);
-if((codigo \>= 97 && codigo \<= 122) ||
-(codigo \>= 65 && codigo \<= 90) || (codigo == 32)){
-return true;
-} else {
-elemento.value = elemento.value.substring(0, elemento.value.
-length-1);
-return false;
-}
-} else{
-return true;
-}
-![](README_files/background07.jpg)
-}
-c) Validar Apellidos
-Se utilizan los mismos dos métodos anteriores (dosPalabras y
-validarLetras)
-al ser una situación idéntica a los nombres.
-d) Validar Teléfono
-El método es similar a validarLetras, en este caso valida el intervalo
-de
-codigos para los números arábigos. Se añade una funcionalidad más que es
-la de verificar que solo se puedan ingresar 10 números (método también
-usado en el campo Cédula).
-function validarNumeros(elemento) {
-if(elemento.value.length \> 0 && elemento.value.length \<= 10){
-var codigo = elemento.value.charCodeAt(elemento.value.length-1);
-console.log(codigo);
-//alert(elemento.value.length);
-if(codigo \>= 48 && codigo \<= 57){
-return true;
-} else {
-elemento.value = elemento.value.substring(0, elemento.value.leng
-th-1);
-return false;
-}
-} else if (elemento.value.length \> 10) {
-elemento.value = elemento.value.substring(0, elemento.value.length-
-1);
-return false;
-} else{
-return true;
-![](README_files/background08.jpg)
-}
-}
-e) Validar Fecha de Nacimiento
-Se utiliza un método tipo validarLetras, pero que solo incluya números y
-el
-símbolo “/”. Al momento de validar el formato no se usan expresiones
-regulares, en su lugar se cuenta el número de “/” y sus posiciones, de
-acuerdo con estas posiciones se procede a separar los distintos números
-y
-verificar si el día va de 1 a 31, el mes de 1-12 y el año de 1900 a
-2020.
-function validarCorreo(elemento) {
-var codigo;
-var count=0;
-var texto = elemento.value;
-var bandera=false;
-//alert(texto);
-for(var i = 0; i \< texto.length; i++) {
-codigo = texto.charCodeAt(i);
-if (codigo == 64) {
-count=i;
-break;
-}
-}
-if(count != 0) {
-![](README_files/background09.jpg)
-//alert(texto.substring(count, texto.length));
-if ((texto.substring(count, texto.length) == '@ups.edu.ec')
-|| (texto.substring(count, texto.length) == '@est.ups.edu.ec')){
-bandera=true;
-} else {
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-}
-//alert(count);
-return bandera;
-}
-function valiarPassword(elemento) {
-var codigo;
-var may=0, min=0, car=0;
-var texto = elemento.value;
-var bandera=true;
-//alert(texto);
-if (texto.length\>=8) {
-for(var i = 0; i \< texto.length; i++) {
-codigo = texto.charCodeAt(i);
-if (codigo \>= 97 && codigo \<= 122) {
-![](README_files/background10.jpg)
-min=1;
-} else if (codigo \>= 65 && codigo \<= 90) {
-may=1;
-} else if (codigo == 64) {
-car=1;
-} else if (codigo == 36) {
-car=1;
-} else if (codigo == 95) {
-car=1;
-}
-}
-} else {
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-if (min!=1 && may!=1 && car!=1) {
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-return bandera;
-}
-f) Validar Email
-![](README_files/background11.jpg)
-Es este método lo primero que se hace es validar la existencia de “@”
-(\#64)
-por medio de su Unicode. Cuando se encuentro el símbolo se procede a
-contar el número de caracteres antes de dicho símbolo, si es menor a
-tres se
-anula el siguiente paso. El último paso es simple, solo queda utilizar
-substring() para determinar si el dominio es permitido.
-function validarCorreo(elemento) {
-var codigo;
-var count=0;
-var texto = elemento.value;
-var bandera=false;
-//alert(texto);
-for(var i = 0; i \< texto.length; i++) {
-codigo = texto.charCodeAt(i);
-if (codigo == 64) {
-count=i;
-break;
-}
-}
-if(count != 0) {
-//alert(texto.substring(count, texto.length));
-if ((texto.substring(count, texto.length) == '@ups.edu.ec')
-|| (texto.substring(count, texto.length) == '@est.ups.edu.ec')){
-bandera=true;
-} else {
-elemento.style.border = '1px red solid';
-![](README_files/background12.jpg)
-elemento.className = 'error';
-bandera = false;
-}
-}
-//alert(count);
-return bandera;
-}
-g) Validar Contraseña
-El método primeramente verifica que al menos existan 8 caracteres
-escritos,
-luego simplemente se hace un barrido de la cadena y se usan banderas que
-indican si se han encontrado letras mayúsculas, minúsculas o un símbolo
-(@, \_, \$).
-function valiarPassword(elemento) {
-var codigo;
-var may=0, min=0, car=0;
-var texto = elemento.value;
-var bandera=true;
-//alert(texto);
-if (texto.length\>=8) {
-for(var i = 0; i \< texto.length; i++) {
-codigo = texto.charCodeAt(i);
-if (codigo \>= 97 && codigo \<= 122) {
-min=1;
-} else if (codigo \>= 65 && codigo \<= 90) {
-![](README_files/background13.jpg)
-may=1;
-} else if (codigo == 64) {
-car=1;
-} else if (codigo == 36) {
-car=1;
-} else if (codigo == 95) {
-car=1;
-}
-}
-} else {
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-if (min!=1 && may!=1 && car!=1) {
-elemento.style.border = '1px red solid';
-elemento.className = 'error';
-bandera = false;
-}
-return bandera;
-}
+﻿<div style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background01.jpg" width=612 height=792></div>
+<div style="position:absolute;left:85.03px;top:70.03px" class="cls_002"><span class="cls_002">REPOSITORIO</span></div>
+<div style="position:absolute;left:85.03px;top:93.03px" class="cls_003"><span class="cls_003">Link del Repositorio: </span><A HREF="https://github.com/IvanUlloa098/Practica03-UlloaIvan.git">https://github.com/IvanUlloa098/Practica03-UlloaIvan.git</A> </span></div>
+<div style="position:absolute;left:85.03px;top:116.22px" class="cls_003"><span class="cls_003">Usuario: IvanUlloa098</span></div>
+<div style="position:absolute;left:85.03px;top:162.05px" class="cls_003"><span class="cls_003">Commits:</span></div>
+<div style="position:absolute;left:103.02px;top:543.52px" class="cls_003"><span class="cls_003">1.  Diseñar una interfaz en HTML que permita ingresar los siguientes campos en un</span></div>
+<div style="position:absolute;left:121.05px;top:557.33px" class="cls_003"><span class="cls_003">formulario: cedula, nombres, apellidos, dirección, teléfono, fecha de nacimiento,</span></div>
+<div style="position:absolute;left:121.05px;top:571.15px" class="cls_003"><span class="cls_003">correo electrónico y contraseña. Luego, usando funciones de JavaScript se pide</span></div>
+<div style="position:absolute;left:121.05px;top:584.95px" class="cls_003"><span class="cls_003">validar que todos los campos han sido ingresados, además; que los valores</span></div>
+<div style="position:absolute;left:121.05px;top:598.75px" class="cls_003"><span class="cls_003">ingresados en cada campo del formulario sean correctos teniendo en cuenta las</span></div>
+<div style="position:absolute;left:121.05px;top:612.55px" class="cls_003"><span class="cls_003">siguientes condiciones:</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:802px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background02.jpg" width=612 height=792></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:1604px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background03.jpg" width=612 height=792></div>
+<div style="position:absolute;left:139.05px;top:448.70px" class="cls_003"><span class="cls_003">a)  Validar Cedula</span></div>
+<div style="position:absolute;left:157.05px;top:462.52px" class="cls_003"><span class="cls_003">El método validarCedula() recibe el elemento y primeramente verifica que el</span></div>
+<div style="position:absolute;left:157.05px;top:476.33px" class="cls_003"><span class="cls_003">numero de caracteres sea igual a 10 para de esta manera continuar con el</span></div>
+<div style="position:absolute;left:157.05px;top:490.12px" class="cls_003"><span class="cls_003">método de validación que es aquel que se ha llevado realizando desde</span></div>
+<div style="position:absolute;left:157.05px;top:503.92px" class="cls_003"><span class="cls_003">siempre.</span></div>
+<div style="position:absolute;left:85.03px;top:541.32px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">validarCedula</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:585.75px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:608.15px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:630.35px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">total</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:674.78px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009"> == </span><span class="cls_012">10</span><span class="cls_009">){</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:2406px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background04.jpg" width=612 height=792></div>
+<div style="position:absolute;left:131.45px;top:71.82px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">); </span><span class="cls_011">i</span><span class="cls_009">++){</span></div>
+<div style="position:absolute;left:154.45px;top:94.23px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">i</span><span class="cls_009">%</span><span class="cls_012">2</span><span class="cls_009"> === </span><span class="cls_012">0</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:116.43px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">aux</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">) * </span><span class="cls_012">2</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:177.65px;top:138.62px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">aux</span><span class="cls_009"> > </span><span class="cls_012">9</span><span class="cls_009">) </span><span class="cls_011">aux</span><span class="cls_009"> -= </span><span class="cls_012">9</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:177.65px;top:160.85px" class="cls_011"><span class="cls_011">total</span><span class="cls_009"> += </span><span class="cls_011">aux</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:183.25px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:177.65px;top:205.45px" class="cls_011"><span class="cls_011">total</span><span class="cls_009"> += </span><span class="cls_010">parseInt</span><span class="cls_009">(</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">));</span></div>
+<div style="position:absolute;left:154.45px;top:227.65px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:131.45px;top:249.87px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:131.45px;top:294.47px" class="cls_011"><span class="cls_011">total</span><span class="cls_009"> = </span><span class="cls_011">total</span><span class="cls_009"> % </span><span class="cls_012">10</span><span class="cls_009"> ? </span><span class="cls_012">10</span><span class="cls_009"> - </span><span class="cls_011">total</span><span class="cls_009"> % </span><span class="cls_012">10</span><span class="cls_009"> : </span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:338.88px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charAt</span><span class="cls_009">(</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">) == </span><span class="cls_011">total</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:154.45px;top:361.30px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:383.50px" class="cls_009"><span class="cls_009">}</span><span class="cls_013">else</span><span class="cls_009">{</span></div>
+<div style="position:absolute;left:154.45px;top:405.70px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:427.90px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:450.30px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:472.52px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:494.72px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:539.32px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:583.75px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:157.05px;top:617.95px" class="cls_003"><span class="cls_003">Al final la bandera indicará si se encuentra correcta o no.</span></div>
+<div style="position:absolute;left:139.05px;top:659.35px" class="cls_003"><span class="cls_003">b)  Validar Nombres</span></div>
+<div style="position:absolute;left:157.05px;top:673.17px" class="cls_003"><span class="cls_003">Este método (dosPalabras) es simple e involucra contar la cantidad de</span></div>
+<div style="position:absolute;left:157.05px;top:686.97px" class="cls_003"><span class="cls_003">espacios en blanco existentes en el elemento input, sin existen más de un</span></div>
+<div style="position:absolute;left:157.05px;top:700.78px" class="cls_003"><span class="cls_003">espacio o “0” espacios la bandera cambiará a falso. Esto juntado con un</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:3208px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background05.jpg" width=612 height=792></div>
+<div style="position:absolute;left:157.05px;top:70.03px" class="cls_003"><span class="cls_003">método de verificación al ingresar cada letra, evitando el ingreso de</span></div>
+<div style="position:absolute;left:157.05px;top:83.83px" class="cls_003"><span class="cls_003">caracteres especiales o números.</span></div>
+<div style="position:absolute;left:85.03px;top:121.23px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">dosPalabras</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:165.85px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:188.05px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">count</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:210.25px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:232.45px" class="cls_015"><span class="cls_015">//var elemento = document.getElementById("nombres");</span></div>
+<div style="position:absolute;left:108.22px;top:254.87px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:299.27px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009">++) {</span></div>
+<div style="position:absolute;left:131.45px;top:343.88px" class="cls_011"><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:366.10px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">32</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:154.45px;top:388.30px" class="cls_011"><span class="cls_011">count</span><span class="cls_009">++;</span></div>
+<div style="position:absolute;left:131.45px;top:410.50px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:455.10px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:499.52px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">></span><span class="cls_012">1</span><span class="cls_009">){</span></div>
+<div style="position:absolute;left:131.45px;top:521.93px" class="cls_015"><span class="cls_015">//advertencias = advertencias+'\nERROR: Solo dos '+elemento.id;</span></div>
+<div style="position:absolute;left:131.45px;top:544.13px" class="cls_015"><span class="cls_015">//alert('ERROR: Solo dos '+elemento.id);</span></div>
+<div style="position:absolute;left:131.45px;top:566.35px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:588.55px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:610.95px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:655.35px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">count</span><span class="cls_009">==</span><span class="cls_012">0</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:677.57px" class="cls_015"><span class="cls_015">//alert('ERROR: Dos '+elemento.id+' neccesarios');</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:4010px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background06.jpg" width=612 height=792></div>
+<div style="position:absolute;left:131.45px;top:71.82px" class="cls_015"><span class="cls_015">//advertencias = advertencias+'\nERROR: Dos '+elemento.id+' neccesar</span></div>
+<div style="position:absolute;left:85.03px;top:86.23px" class="cls_015"><span class="cls_015">ios';</span></div>
+<div style="position:absolute;left:131.45px;top:108.43px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:130.62px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:152.85px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:175.25px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:219.65px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:241.85px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:157.05px;top:276.08px" class="cls_003"><span class="cls_003">El método para validar los caracteres. Lo que hace es verificar el carácter</span></div>
+<div style="position:absolute;left:157.05px;top:289.87px" class="cls_003"><span class="cls_003">ingresado y compararlo con su código Unicode, el que debe estar en un</span></div>
+<div style="position:absolute;left:157.05px;top:303.68px" class="cls_003"><span class="cls_003">intervalo determinado. Se incluye también el uso de espacio (#32):</span></div>
+<div style="position:absolute;left:85.03px;top:327.27px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">validarLetras</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:371.90px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009"> > </span><span class="cls_012">0</span><span class="cls_009">){</span></div>
+<div style="position:absolute;left:154.45px;top:394.10px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:154.45px;top:416.30px" class="cls_011"><span class="cls_011">console</span><span class="cls_009">.</span><span class="cls_010">log</span><span class="cls_009">(</span><span class="cls_011">codigo</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:154.45px;top:460.92px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">((</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">97</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">122</span><span class="cls_009">) ||</span></div>
+<div style="position:absolute;left:154.45px;top:483.13px" class="cls_009"><span class="cls_009">(</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">65</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">90</span><span class="cls_009">) || (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">32</span><span class="cls_009">)){</span></div>
+<div style="position:absolute;left:177.65px;top:505.32px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:527.73px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:177.65px;top:549.93px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span></div>
+<div style="position:absolute;left:85.03px;top:564.15px" class="cls_011"><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:177.65px;top:586.35px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:608.75px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:131.45px;top:653.15px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009">{</span></div>
+<div style="position:absolute;left:154.45px;top:675.37px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:697.78px" class="cls_009"><span class="cls_009">}</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:4812px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background07.jpg" width=612 height=792></div>
+<div style="position:absolute;left:85.03px;top:94.23px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:139.05px;top:151.25px" class="cls_003"><span class="cls_003">c)  Validar Apellidos</span></div>
+<div style="position:absolute;left:157.05px;top:165.05px" class="cls_003"><span class="cls_003">Se utilizan los mismos dos métodos anteriores (dosPalabras y validarLetras)</span></div>
+<div style="position:absolute;left:157.05px;top:178.85px" class="cls_003"><span class="cls_003">al ser una situación idéntica a los nombres.</span></div>
+<div style="position:absolute;left:139.05px;top:206.45px" class="cls_003"><span class="cls_003">d)  Validar Teléfono</span></div>
+<div style="position:absolute;left:157.05px;top:220.25px" class="cls_003"><span class="cls_003">El método es similar a validarLetras, en este caso valida el intervalo de</span></div>
+<div style="position:absolute;left:157.05px;top:234.05px" class="cls_003"><span class="cls_003">codigos para los números arábigos. Se añade una funcionalidad más que es</span></div>
+<div style="position:absolute;left:157.05px;top:247.87px" class="cls_003"><span class="cls_003">la de verificar que solo se puedan ingresar 10 números (método también</span></div>
+<div style="position:absolute;left:157.05px;top:261.67px" class="cls_003"><span class="cls_003">usado en el campo Cédula).</span></div>
+<div style="position:absolute;left:85.03px;top:299.07px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">validarNumeros</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:343.67px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009"> > </span><span class="cls_012">0</span><span class="cls_009"> && </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009"> &lt;= </span><span class="cls_012">10</span><span class="cls_009">){</span></div>
+<div style="position:absolute;left:131.45px;top:365.90px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:388.10px" class="cls_011"><span class="cls_011">console</span><span class="cls_009">.</span><span class="cls_010">log</span><span class="cls_009">(</span><span class="cls_011">codigo</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:410.30px" class="cls_015"><span class="cls_015">//alert(elemento.value.length);</span></div>
+<div style="position:absolute;left:131.45px;top:432.70px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">48</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">57</span><span class="cls_009">){</span></div>
+<div style="position:absolute;left:154.45px;top:454.90px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:477.12px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:154.45px;top:499.32px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">leng</span></div>
+<div style="position:absolute;left:85.03px;top:513.73px" class="cls_011"><span class="cls_011">th</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:154.45px;top:535.92px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:558.12px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:602.75px" class="cls_009"><span class="cls_009">}  </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009"> > </span><span class="cls_012">10</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:624.95px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span></div>
+<div style="position:absolute;left:85.03px;top:639.15px" class="cls_012"><span class="cls_012">1</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:661.35px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:683.78px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009">{</span></div>
+<div style="position:absolute;left:131.45px;top:705.98px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:5614px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background08.jpg" width=612 height=792></div>
+<div style="position:absolute;left:108.22px;top:71.82px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:85.03px;top:116.43px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:139.05px;top:187.25px" class="cls_003"><span class="cls_003">e)  Validar Fecha de Nacimiento</span></div>
+<div style="position:absolute;left:157.05px;top:201.05px" class="cls_003"><span class="cls_003">Se utiliza un método tipo validarLetras, pero que solo incluya números y el</span></div>
+<div style="position:absolute;left:157.05px;top:214.85px" class="cls_003"><span class="cls_003">símbolo “/”. Al momento de validar el formato no se usan expresiones</span></div>
+<div style="position:absolute;left:157.05px;top:228.65px" class="cls_003"><span class="cls_003">regulares, en su lugar se cuenta el número de “/” y sus posiciones, de</span></div>
+<div style="position:absolute;left:157.05px;top:242.45px" class="cls_003"><span class="cls_003">acuerdo con estas posiciones se procede a separar los distintos números y</span></div>
+<div style="position:absolute;left:157.05px;top:256.28px" class="cls_003"><span class="cls_003">verificar si el día va de 1 a 31, el mes de 1-12 y el año de 1900 a 2020.</span></div>
+<div style="position:absolute;left:85.03px;top:293.68px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">validarCorreo</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:338.27px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:360.50px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">count</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:382.70px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:405.10px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:427.30px" class="cls_015"><span class="cls_015">//alert(texto);</span></div>
+<div style="position:absolute;left:108.22px;top:471.73px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009">++) {</span></div>
+<div style="position:absolute;left:131.45px;top:516.32px" class="cls_011"><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:538.52px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">64</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:154.45px;top:560.73px" class="cls_011"><span class="cls_011">count</span><span class="cls_009">=</span><span class="cls_011">i</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:583.15px" class="cls_013"><span class="cls_013">break</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:605.35px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:649.75px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:694.38px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009"> != </span><span class="cls_012">0</span><span class="cls_009">) {</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:6416px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background09.jpg" width=612 height=792></div>
+<div style="position:absolute;left:131.45px;top:71.82px" class="cls_015"><span class="cls_015">//alert(texto.substring(count, texto.length));</span></div>
+<div style="position:absolute;left:131.45px;top:94.23px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> ((</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@ups.edu.ec'</span><span class="cls_009">)</span></div>
+<div style="position:absolute;left:131.45px;top:116.43px" class="cls_009"><span class="cls_009">|| (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@est.ups.edu.ec'</span><span class="cls_009">)){</span></div>
+<div style="position:absolute;left:154.45px;top:138.62px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:160.85px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:154.45px;top:183.25px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:205.45px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:227.65px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:249.87px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:272.27px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:294.47px" class="cls_015"><span class="cls_015">//alert(count);</span></div>
+<div style="position:absolute;left:108.22px;top:338.88px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:383.50px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:85.03px;top:427.90px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">valiarPassword</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:472.52px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:494.72px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">min</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:516.92px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:539.32px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:561.52px" class="cls_015"><span class="cls_015">//alert(texto);</span></div>
+<div style="position:absolute;left:108.22px;top:605.95px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">>=</span><span class="cls_012">8</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:628.35px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009">++) {</span></div>
+<div style="position:absolute;left:154.45px;top:672.78px" class="cls_011"><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:154.45px;top:694.98px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">97</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">122</span><span class="cls_009">) {</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:7218px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background10.jpg" width=612 height=792></div>
+<div style="position:absolute;left:177.65px;top:71.82px" class="cls_011"><span class="cls_011">min</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:94.23px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">65</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">90</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:116.43px" class="cls_011"><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:138.62px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">64</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:160.85px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:183.25px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">36</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:205.45px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:227.65px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">95</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:249.87px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:272.27px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:131.45px;top:316.67px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:338.88px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:131.45px;top:361.30px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:383.50px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:405.70px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:427.90px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:472.52px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">min</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009"> && </span><span class="cls_011">may</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009"> && </span><span class="cls_011">car</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:494.72px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:516.92px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:539.32px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:561.52px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:605.95px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:650.55px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:139.05px;top:698.58px" class="cls_003"><span class="cls_003">f)  Validar Email</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:8020px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background11.jpg" width=612 height=792></div>
+<div style="position:absolute;left:157.05px;top:70.03px" class="cls_003"><span class="cls_003">Es este método lo primero que se hace es validar la existencia de “@” (#64)</span></div>
+<div style="position:absolute;left:157.05px;top:83.83px" class="cls_003"><span class="cls_003">por medio de su Unicode. Cuando se encuentro el símbolo se procede a</span></div>
+<div style="position:absolute;left:157.05px;top:97.62px" class="cls_003"><span class="cls_003">contar el número de caracteres antes de dicho símbolo, si es menor a tres se</span></div>
+<div style="position:absolute;left:157.05px;top:111.42px" class="cls_003"><span class="cls_003">anula el siguiente paso. El último paso es simple, solo queda utilizar</span></div>
+<div style="position:absolute;left:157.05px;top:125.22px" class="cls_003"><span class="cls_003">substring() para determinar si el dominio es permitido.</span></div>
+<div style="position:absolute;left:85.03px;top:162.65px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">validarCorreo</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:207.25px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:229.45px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">count</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:251.68px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:273.88px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:296.27px" class="cls_015"><span class="cls_015">//alert(texto);</span></div>
+<div style="position:absolute;left:108.22px;top:340.67px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009">++) {</span></div>
+<div style="position:absolute;left:131.45px;top:385.30px" class="cls_011"><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:131.45px;top:407.50px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">64</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:154.45px;top:429.70px" class="cls_011"><span class="cls_011">count</span><span class="cls_009">=</span><span class="cls_011">i</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:451.90px" class="cls_013"><span class="cls_013">break</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:474.32px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:518.73px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:563.32px" class="cls_013"><span class="cls_013">if</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009"> != </span><span class="cls_012">0</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:585.55px" class="cls_015"><span class="cls_015">//alert(texto.substring(count, texto.length));</span></div>
+<div style="position:absolute;left:131.45px;top:607.75px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> ((</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@ups.edu.ec'</span><span class="cls_009">)</span></div>
+<div style="position:absolute;left:131.45px;top:629.95px" class="cls_009"><span class="cls_009">|| (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@est.ups.edu.ec'</span><span class="cls_009">)){</span></div>
+<div style="position:absolute;left:154.45px;top:652.35px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:674.57px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:154.45px;top:696.78px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:8822px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background12.jpg" width=612 height=792></div>
+<div style="position:absolute;left:154.45px;top:71.82px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:94.23px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:116.43px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:138.62px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:160.85px" class="cls_015"><span class="cls_015">//alert(count);</span></div>
+<div style="position:absolute;left:108.22px;top:205.45px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:249.87px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:139.05px;top:293.27px" class="cls_003"><span class="cls_003">g)  Validar Contraseña</span></div>
+<div style="position:absolute;left:157.05px;top:307.08px" class="cls_003"><span class="cls_003">El método primeramente verifica que al menos existan 8 caracteres escritos,</span></div>
+<div style="position:absolute;left:157.05px;top:320.87px" class="cls_003"><span class="cls_003">luego simplemente se hace un barrido de la cadena y se usan banderas que</span></div>
+<div style="position:absolute;left:157.05px;top:334.67px" class="cls_003"><span class="cls_003">indican si se han encontrado letras mayúsculas, minúsculas o un símbolo</span></div>
+<div style="position:absolute;left:157.05px;top:348.47px" class="cls_003"><span class="cls_003">(@, _, $).</span></div>
+<div style="position:absolute;left:85.03px;top:385.90px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">valiarPassword</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:108.22px;top:430.30px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">codigo</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:452.70px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">min</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">, </span><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">0</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:474.93px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">texto</span><span class="cls_009"> = </span><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">value</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:497.12px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">=</span><span class="cls_008">true</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:519.32px" class="cls_015"><span class="cls_015">//alert(texto);</span></div>
+<div style="position:absolute;left:108.22px;top:563.95px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">>=</span><span class="cls_012">8</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:586.15px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009">++) {</span></div>
+<div style="position:absolute;left:154.45px;top:630.75px" class="cls_011"><span class="cls_011">codigo</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charCodeAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">);</span></div>
+<div style="position:absolute;left:154.45px;top:652.95px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">97</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">122</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:675.17px" class="cls_011"><span class="cls_011">min</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:697.38px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">65</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">90</span><span class="cls_009">) {</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:9624px;width:612px;height:792px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="lol_files/background13.jpg" width=612 height=792></div>
+<div style="position:absolute;left:177.65px;top:71.82px" class="cls_011"><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:94.23px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">64</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:116.43px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:138.62px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">36</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:160.85px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:183.25px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">95</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:177.65px;top:205.45px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:154.45px;top:227.65px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:131.45px;top:272.27px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:294.47px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> {</span></div>
+<div style="position:absolute;left:131.45px;top:316.67px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:338.88px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:361.30px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:383.50px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:427.90px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">min</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009"> && </span><span class="cls_011">may</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009"> && </span><span class="cls_011">car</span><span class="cls_009">!=</span><span class="cls_012">1</span><span class="cls_009">) {</span></div>
+<div style="position:absolute;left:131.45px;top:450.30px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:472.52px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:131.45px;top:494.72px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:108.22px;top:516.92px" class="cls_009"><span class="cls_009">}</span></div>
+<div style="position:absolute;left:108.22px;top:561.52px" class="cls_013"><span class="cls_013">return</span><span class="cls_009"> </span><span class="cls_011">bandera</span><span class="cls_009">;</span></div>
+<div style="position:absolute;left:85.03px;top:605.95px" class="cls_009"><span class="cls_009">}</span></div>
+</div>
