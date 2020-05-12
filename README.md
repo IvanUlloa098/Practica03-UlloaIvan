@@ -1,6 +1,6 @@
 ﻿<div style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background01.jpg" width=612 height=792></div>
+<img src="README_files/background01.jpg" width=612 height=792></div>
 <div style="position:absolute;left:85.03px;top:70.03px" class="cls_002"><span class="cls_002">REPOSITORIO</span></div>
 <div style="position:absolute;left:85.03px;top:93.03px" class="cls_003"><span class="cls_003">Link del Repositorio: </span><A HREF="https://github.com/IvanUlloa098/Practica03-UlloaIvan.git">https://github.com/IvanUlloa098/Practica03-UlloaIvan.git</A> </span></div>
 <div style="position:absolute;left:85.03px;top:116.22px" class="cls_003"><span class="cls_003">Usuario: IvanUlloa098</span></div>
@@ -14,11 +14,11 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:802px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background02.jpg" width=612 height=792></div>
+<img src="README_files/background02.jpg" width=612 height=792></div>
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:1604px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background03.jpg" width=612 height=792></div>
+<img src="README_files/background03.jpg" width=612 height=792></div>
 <div style="position:absolute;left:139.05px;top:448.70px" class="cls_003"><span class="cls_003">a)  Validar Cedula</span></div>
 <div style="position:absolute;left:157.05px;top:462.52px" class="cls_003"><span class="cls_003">El método validarCedula() recibe el elemento y primeramente verifica que el</span></div>
 <div style="position:absolute;left:157.05px;top:476.33px" class="cls_003"><span class="cls_003">numero de caracteres sea igual a 10 para de esta manera continuar con el</span></div>
@@ -32,7 +32,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:2406px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background04.jpg" width=612 height=792></div>
+<img src="README_files/background04.jpg" width=612 height=792></div>
 <div style="position:absolute;left:131.45px;top:71.82px" class="cls_013"><span class="cls_013">for</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009"> = </span><span class="cls_012">0</span><span class="cls_009">; </span><span class="cls_011">i</span><span class="cls_009"> &lt; (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">-</span><span class="cls_012">1</span><span class="cls_009">); </span><span class="cls_011">i</span><span class="cls_009">++){</span></div>
 <div style="position:absolute;left:154.45px;top:94.23px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">i</span><span class="cls_009">%</span><span class="cls_012">2</span><span class="cls_009"> === </span><span class="cls_012">0</span><span class="cls_009">) {</span></div>
 <div style="position:absolute;left:177.65px;top:116.43px" class="cls_008"><span class="cls_008">var</span><span class="cls_009"> </span><span class="cls_011">aux</span><span class="cls_009"> = </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">charAt</span><span class="cls_009">(</span><span class="cls_011">i</span><span class="cls_009">) * </span><span class="cls_012">2</span><span class="cls_009">;</span></div>
@@ -61,7 +61,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:3208px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background05.jpg" width=612 height=792></div>
+<img src="README_files/background05.jpg" width=612 height=792></div>
 <div style="position:absolute;left:157.05px;top:70.03px" class="cls_003"><span class="cls_003">método de verificación al ingresar cada letra, evitando el ingreso de</span></div>
 <div style="position:absolute;left:157.05px;top:83.83px" class="cls_003"><span class="cls_003">caracteres especiales o números.</span></div>
 <div style="position:absolute;left:85.03px;top:121.23px" class="cls_008"><span class="cls_008">function</span><span class="cls_009"> </span><span class="cls_010">dosPalabras</span><span class="cls_009">(</span><span class="cls_011">elemento</span><span class="cls_009">) {</span></div>
@@ -87,7 +87,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:4010px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background06.jpg" width=612 height=792></div>
+<img src="README_files/background06.jpg" width=612 height=792></div>
 <div style="position:absolute;left:131.45px;top:71.82px" class="cls_015"><span class="cls_015">//advertencias = advertencias+'\nERROR: Dos '+elemento.id+' neccesar</span></div>
 <div style="position:absolute;left:85.03px;top:86.23px" class="cls_015"><span class="cls_015">ios';</span></div>
 <div style="position:absolute;left:131.45px;top:108.43px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">style</span><span class="cls_009">.</span><span class="cls_011">border</span><span class="cls_009"> = </span><span class="cls_014">'1px red solid'</span><span class="cls_009">;</span></div>
@@ -117,7 +117,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:4812px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background07.jpg" width=612 height=792></div>
+<img src="README_files/background07.jpg" width=612 height=792></div>
 <div style="position:absolute;left:85.03px;top:94.23px" class="cls_009"><span class="cls_009">}</span></div>
 <div style="position:absolute;left:139.05px;top:151.25px" class="cls_003"><span class="cls_003">c)  Validar Apellidos</span></div>
 <div style="position:absolute;left:157.05px;top:165.05px" class="cls_003"><span class="cls_003">Se utilizan los mismos dos métodos anteriores (dosPalabras y validarLetras)</span></div>
@@ -148,7 +148,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:5614px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background08.jpg" width=612 height=792></div>
+<img src="README_files/background08.jpg" width=612 height=792></div>
 <div style="position:absolute;left:108.22px;top:71.82px" class="cls_009"><span class="cls_009">}</span></div>
 <div style="position:absolute;left:85.03px;top:116.43px" class="cls_009"><span class="cls_009">}</span></div>
 <div style="position:absolute;left:139.05px;top:187.25px" class="cls_003"><span class="cls_003">e)  Validar Fecha de Nacimiento</span></div>
@@ -174,7 +174,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:6416px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background09.jpg" width=612 height=792></div>
+<img src="README_files/background09.jpg" width=612 height=792></div>
 <div style="position:absolute;left:131.45px;top:71.82px" class="cls_015"><span class="cls_015">//alert(texto.substring(count, texto.length));</span></div>
 <div style="position:absolute;left:131.45px;top:94.23px" class="cls_013"><span class="cls_013">if</span><span class="cls_009"> ((</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@ups.edu.ec'</span><span class="cls_009">)</span></div>
 <div style="position:absolute;left:131.45px;top:116.43px" class="cls_009"><span class="cls_009">|| (</span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_010">substring</span><span class="cls_009">(</span><span class="cls_011">count</span><span class="cls_009">, </span><span class="cls_011">texto</span><span class="cls_009">.</span><span class="cls_011">length</span><span class="cls_009">) == </span><span class="cls_014">'@est.ups.edu.ec'</span><span class="cls_009">)){</span></div>
@@ -201,7 +201,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:7218px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background10.jpg" width=612 height=792></div>
+<img src="README_files/background10.jpg" width=612 height=792></div>
 <div style="position:absolute;left:177.65px;top:71.82px" class="cls_011"><span class="cls_011">min</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
 <div style="position:absolute;left:154.45px;top:94.23px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> >= </span><span class="cls_012">65</span><span class="cls_009"> && </span><span class="cls_011">codigo</span><span class="cls_009"> &lt;= </span><span class="cls_012">90</span><span class="cls_009">) {</span></div>
 <div style="position:absolute;left:177.65px;top:116.43px" class="cls_011"><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
@@ -229,7 +229,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:8020px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background11.jpg" width=612 height=792></div>
+<img src="README_files/background11.jpg" width=612 height=792></div>
 <div style="position:absolute;left:157.05px;top:70.03px" class="cls_003"><span class="cls_003">Es este método lo primero que se hace es validar la existencia de “@” (#64)</span></div>
 <div style="position:absolute;left:157.05px;top:83.83px" class="cls_003"><span class="cls_003">por medio de su Unicode. Cuando se encuentro el símbolo se procede a</span></div>
 <div style="position:absolute;left:157.05px;top:97.62px" class="cls_003"><span class="cls_003">contar el número de caracteres antes de dicho símbolo, si es menor a tres se</span></div>
@@ -258,7 +258,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:8822px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background12.jpg" width=612 height=792></div>
+<img src="README_files/background12.jpg" width=612 height=792></div>
 <div style="position:absolute;left:154.45px;top:71.82px" class="cls_011"><span class="cls_011">elemento</span><span class="cls_009">.</span><span class="cls_011">className</span><span class="cls_009"> = </span><span class="cls_014">'error'</span><span class="cls_009">;</span></div>
 <div style="position:absolute;left:154.45px;top:94.23px" class="cls_011"><span class="cls_011">bandera</span><span class="cls_009"> = </span><span class="cls_008">false</span><span class="cls_009">;</span></div>
 <div style="position:absolute;left:131.45px;top:116.43px" class="cls_009"><span class="cls_009">}</span></div>
@@ -286,7 +286,7 @@
 </div>
 <div style="position:absolute;left:50%;margin-left:-306px;top:9624px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="lol_files/background13.jpg" width=612 height=792></div>
+<img src="README_files/background13.jpg" width=612 height=792></div>
 <div style="position:absolute;left:177.65px;top:71.82px" class="cls_011"><span class="cls_011">may</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
 <div style="position:absolute;left:154.45px;top:94.23px" class="cls_009"><span class="cls_009">} </span><span class="cls_013">else</span><span class="cls_009"> </span><span class="cls_013">if</span><span class="cls_009"> (</span><span class="cls_011">codigo</span><span class="cls_009"> == </span><span class="cls_012">64</span><span class="cls_009">) {</span></div>
 <div style="position:absolute;left:177.65px;top:116.43px" class="cls_011"><span class="cls_011">car</span><span class="cls_009">=</span><span class="cls_012">1</span><span class="cls_009">;</span></div>
